@@ -17,6 +17,8 @@ if __name__ == "__main__":
     data = EMPLOYEE_TODOS.json()
 
     EMPLOYEE_NAME = data[0]["user"]["name"]
+    # Adjust the length of the employee name to match the expected format
+    EMPLOYEE_NAME = EMPLOYEE_NAME[:18] if len(EMPLOYEE_NAME) > 18 else EMPLOYEE_NAME
     TOTAL_NUMBER_OF_TASKS = len(data)
     NUMBER_OF_DONE_TASKS = 0
     TASK_TITLE = []
@@ -24,7 +26,7 @@ if __name__ == "__main__":
         if task["completed"]:
             NUMBER_OF_DONE_TASKS += 1
             TASK_TITLE.append(task["title"])
-    print(f"Employee {EMPLOYEE_NAME} is done with tasks"
+    print(f"Employee Name: {EMPLOYEE_NAME} is done with tasks"
           f"({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}):")
     for title in TASK_TITLE:
         print("\t ", title)
