@@ -23,16 +23,20 @@ if __name__ == "__main__":
     TOTAL_NUMBER_OF_TASKS = len(data)
     NUMBER_OF_DONE_TASKS = sum(1 for task in data if task["completed"])
     TASK_TITLE = [task["title"] for task in data if task["completed"]]
-    
+
     # Print Employee Name: OK/Incorrect
-    print(f"Employee Name: {'OK' if len(EMPLOYEE_NAME) == 17 else 'Incorrect'}")
-    
+    print(
+        f"Employee Name: {'OK' if len(EMPLOYEE_NAME) == 17 else 'Incorrect'}")
+
     # Print To Do Count: OK/Incorrect
-    print(f"To Do Count: {'OK' if TOTAL_NUMBER_OF_TASKS == len(data) else 'Incorrect'}")
-    
+    print(
+        f"To Do Count: {'OK' if TOTAL_NUMBER_OF_TASKS == len(data) else 'Incorrect'}")
+
     # Print First line formatting: OK/Incorrect
-    print(f"First line formatting: {'OK' if len(EMPLOYEE_NAME) == 17 and TOTAL_NUMBER_OF_TASKS == len(data) else 'Incorrect'}")
+    print(
+        f"First line formatting: {'OK' if len(EMPLOYEE_NAME) == 17 and TOTAL_NUMBER_OF_TASKS == len(data) else 'Incorrect'}")
 
     # Print Task 1 to Task N Formatting: OK/Not in output
     for i, title in enumerate(TASK_TITLE, start=1):
-        print(f"Task {i} {'Formatting: OK' if title in TASK_TITLE else 'not in output'}")
+        print(
+            f"Task {i} {'Formatting: OK' if title in TASK_TITLE else 'not in output'}")
