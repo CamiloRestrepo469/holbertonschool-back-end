@@ -18,7 +18,8 @@ if __name__ == "__main__":
 
     EMPLOYEE_NAME = data[0]["user"]["name"]
     # Adjust the length of the employee name to match the expected format
-    EMPLOYEE_NAME = EMPLOYEE_NAME[:18] if len(EMPLOYEE_NAME) > 18 else EMPLOYEE_NAME
+    EMPLOYEE_NAME = EMPLOYEE_NAME[:18] if len(
+        EMPLOYEE_NAME) > 18 else EMPLOYEE_NAME
     TOTAL_NUMBER_OF_TASKS = len(data)
     NUMBER_OF_DONE_TASKS = 0
     TASK_TITLE = []
