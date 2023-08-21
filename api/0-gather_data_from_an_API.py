@@ -1,42 +1,33 @@
 #!/usr/bin/python3
-"""import"""
-import json
+
 import requests
 import sys
 
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print(f"missing employee id as argument")
+    if len(sys.argv) != 2:
+        print(f"UsageError: python3 {__file__} employee_id(int)")
         sys.exit(1)
 
-    URL = "https://jsonplaceholder.typicode.com"
+    API_URL = "https://jsonplaceholder.typicode.com"
     EMPLOYEE_ID = sys.argv[1]
 
-    EMPLOYEE_TODOS = requests.get(f"{URL}/users/{EMPLOYEE_ID}/todos",
-                                  params={"_expand": "user"})
-    data = EMPLOYEE_TODOS.json()
+    response = requests.get(
+        f"{API_URL}/users/{EMPLOYEE_ID}/todos",
+        params={"_expand": "user"}
+    )
+    data = response.json()
 
-    EMPLOYEE_NAME = data[0]["user"]["name"]
-    # Adjust the length of the employee name to match the expected format
-    EMPLOYEE_NAME = EMPLOYEE_NAME[:17] if len(
-        EMPLOYEE_NAME) > 17 else EMPLOYEE_NAME
-    TOTAL_NUMBER_OF_TASKS = len(data)
-    NUMBER_OF_DONE_TASKS = sum(1 for task in data if task["completed"])
-    TASK_TITLE = [task["title"] for task in data if task["completed"]]
+    if not len(data):
+        print("RequestError:", 404)
+        sys.exit(1)
 
-    # Print Employee Name: OK/Incorrect
-    print(
-        f"Employee Name: {'OK' if len(EMPLOYEE_NAME) == 17 else 'Incorrect'}")
+    employee_name = data[0]["user"]["name"]
+    total_tasks = len(data)
+    done_tasks = [task for task in data if task["completed"]]
+    total_done_tasks = len(done_tasks)
 
-    # Print To Do Count: OK/Incorrect
-    print(
-        f"To Do Count: {'OK' if TOTAL_NUMBER_OF_TASKS == len(data) else 'Incorrect'}")
-
-    # Print First line formatting: OK/Incorrect
-    print(
-        f"First line formatting: {'OK' if len(EMPLOYEE_NAME) == 17 and TOTAL_NUMBER_OF_TASKS == len(data) else 'Incorrect'}")
-
-    # Print Task 1 to Task N Formatting: OK/Not in output
-    for i, title in enumerate(TASK_TITLE, start=1):
-        print(
-            f"Task {i} {'Formatting: OK' if title in TASK_TITLE else 'not in output'}")
+    print(f"Employee {employee_name} is done with tasks"
+          f"({total_done_tasks}/{total_tasks}):")
+    for task in done_tasks:
+        print(f"\t {task['title']}")
